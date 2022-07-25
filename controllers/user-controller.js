@@ -1,7 +1,13 @@
+//*
+//* Controller for User
+//*
+// import the required Models
 const { User, Thought } = require('../models');
 
+// define the controller functions for the User route
 const userController = {
   // get all users
+  // API GET route is 'api/users'
   getUsers(req, res) {
     User.find()
       .select('-__v')
@@ -14,6 +20,7 @@ const userController = {
       });
   },
   // get single user by id
+  // API GET route is '/api/users/:userId'
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select('-__v')
@@ -31,6 +38,7 @@ const userController = {
       });
   },
   // create a new user
+  // API POST route is 'api/users'
   createUser(req, res) {
     User.create(req.body)
       .then((dbUserData) => {
@@ -42,6 +50,7 @@ const userController = {
       });
   },
   // update a user
+  // API PUT route is '/api/users/:userId'
   updateUser(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -65,6 +74,7 @@ const userController = {
       });
   },
   // delete user (BONUS: and delete associated thoughts)
+  // API DELETE route is '/api/users/:userId'
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((dbUserData) => {
@@ -85,6 +95,7 @@ const userController = {
   },
 
   // add friend to friend list
+  // API POST route is '/api/users/:userId/friends/:friendId'
   addFriend(req, res) {
     User.findOneAndUpdate({ _id: req.params.userId }, { $addToSet: { friends: req.params.friendId } }, { new: true })
       .then((dbUserData) => {
@@ -99,6 +110,7 @@ const userController = {
       });
   },
   // remove friend from friend list
+  // API DELETE route is '/api/users/:userId/friends/:friendId'
   removeFriend(req, res) {
     User.findOneAndUpdate({ _id: req.params.userId }, { $pull: { friends: req.params.friendId } }, { new: true })
       .then((dbUserData) => {
@@ -113,5 +125,5 @@ const userController = {
       });
   },
 };
-
+// export all functions for use in user-routes
 module.exports = userController;
