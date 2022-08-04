@@ -39,6 +39,15 @@ userSchema.virtual('friendCount').get(function () {
   return this.friends.length;
 });
 
+// is this what is for the bonus?
+// see Mongoose docs at https://mongoosejs.com/docs/middleware.html#pre
+userSchema.pre("findOneAndDelete", { document: false, query: true }, async () => {
+  console.log("this pre-delete for User...");
+  const results = await this.model.findOne(this.getFilter());
+  console.log("results ", results.username);
+  await Thought.deleteMany({ username: results.username });
+});
+
 const User = model('User', userSchema);
 
 module.exports = User;
