@@ -1,5 +1,6 @@
 // load Express router module
 const router = require('express').Router();
+
 // load functions from 'thought-controller.js'
 const {
   getThoughts,
