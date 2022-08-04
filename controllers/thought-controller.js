@@ -8,7 +8,7 @@ const { Thought, User } = require('../models');
 // define the controller functions for the Thoughts routes
 const thoughtController = {
   // GET for all thoughts
-  // API GET route is
+  // API GET route is '/api/thoughts'
   getThoughts(req, res) {
     // Mongoose 'find()' query to return all documents
     // The Mongoose 'sort()' method sets the sort order
@@ -25,7 +25,7 @@ const thoughtController = {
       });
   },
   // GET for single thought by id
-  // API GET route is
+  // API GET route is '/api/thoughts/:thoughtId'
   getSingleThought(req, res) {
     // Mongoose helper action format is 'findOne(conditions)', finds one matching document
     Thought.findOne({ _id: req.params.thoughtId })
@@ -43,7 +43,7 @@ const thoughtController = {
       });
   },
   // create a thought
-  // API POST route is 
+  // API POST route is '/api/thoughts'
   createThought(req, res) {
     // Mongoose helper action format is 'create(document)', shortcut for saving one or more documents to the database
     Thought.create(req.body)
@@ -71,7 +71,7 @@ const thoughtController = {
       });
   },
   // update thought by id
-  // API PUT route is 
+  // API PUT route is '/api/thoughts/:thoughtId'
   updateThought(req, res) {
     // Mongoose helper action format is 'findOneAndUpdate(conditions, update, options)'
     Thought.findOneAndUpdate(
@@ -94,7 +94,7 @@ const thoughtController = {
       });
   },
   // DELETE thought by id
-  // API route is 
+  // API route is '/api/thoughts/:thoughtId'
   deleteThought(req, res) {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })
       .then((dbThoughtData) => {
@@ -127,8 +127,8 @@ const thoughtController = {
         res.status(500).json(err);
       });
   },
-  // add a reaction to a Thought
-  // API POST route is 
+  // add a reaction to a specified Thought id
+  // API POST route is '/api/thoughts/:thoughtId/reactions'
   addReaction(req, res) {
     // Mongoose helper action format is 'findOneAndUpdate(conditions, update, options)'
     Thought.findOneAndUpdate(
@@ -153,7 +153,7 @@ const thoughtController = {
       });
   },
   // delete Reaction (by id) from a Thought
-  // API DELETE route is
+  // API DELETE route is '/api/thoughts/:thoughtId/reactions/:reactionId'
   removeReaction(req, res) {
     // Mongoose helper action format is 'findOneAndUpdate(conditions, update, options)'
     Thought.findOneAndUpdate(
