@@ -1,6 +1,7 @@
-// load Express router module
+// loads Express router module
 const router = require('express').Router();
-// load functions from 'user-controller.js'
+
+// load all functions from 'user-controller.js'
 const {
   getUsers,
   getSingleUser,
@@ -11,13 +12,13 @@ const {
   removeFriend,
 } = require('../../controllers/user-controller');
 
-//* route is /api/users
+// route prefix is /api/users
 router.route('/').get(getUsers).post(createUser);
 
-//* route is /api/users/:userId
+// route prefix is /api/users/:userId
 router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser);
 
-//* route is /api/users/:userId/friends/:friendId
+// route prefix is /api/users/:userId/friends/:friendId
 router.route('/:userId/friends/:friendId').post(addFriend).delete(removeFriend);
 
 module.exports = router;
