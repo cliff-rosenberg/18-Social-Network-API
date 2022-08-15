@@ -5,7 +5,7 @@ const router = require('express').Router();
 const userRoutes = require('./user-routes');
 const thoughtRoutes = require('./thought-routes');
 
-// set up router to use Routes
+// set up Express router to use Routes
 router.use('/users', userRoutes);
 router.use('/thoughts', thoughtRoutes);
 
