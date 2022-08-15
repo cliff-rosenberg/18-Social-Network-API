@@ -13,7 +13,8 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      match: [/.+@.+\..+/, 'Must match an email address!'],
+      // simple RegEx to validate an email in Mongoose
+      match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,3})$/, 'Must match an email address!'],
     },
     thoughts: [
       {
@@ -30,8 +31,8 @@ const userSchema = new Schema(
   },
   {
     toJSON: {
+      // needed due to there being a virtual property in this schema
       virtuals: true,
-      getters: true,
     },
     id: false,
   }
@@ -43,15 +44,6 @@ const userSchema = new Schema(
 // while setters are useful for de-composing a single value into multiple values for storage.
 userSchema.virtual('friendCount').get(function () {
   return this.friends.length;
-});
-
-// is this what is for the bonus?
-// see Mongoose docs at https://mongoosejs.com/docs/middleware.html#pre
-userSchema.pre("findOneAndDelete", { document: false, query: true }, async () => {
-  console.log("this is a pre-delete for User...");
-  const results = await this.model.findOne(this.getFilter());
-  console.log("results here: ", results.username);
-  await Thought.deleteMany({ username: results.username });
 });
 
 const User = model('User', userSchema);
