@@ -12,6 +12,7 @@ const userController = {
   getUsers(req, res) {
     // Mongoose 'find()' query to return all documents
     // the Mongoose 'select()' method is used to specify the field(s) to be returned in the query result
+    // in this case it hides the Version Key from queries
     User.find()
       .select('-__v')
       .then((dbUserData) => {
@@ -27,6 +28,8 @@ const userController = {
   // API GET route is '/api/users/:userId'
   getSingleUser(req, res) {
     // Mongoose helper action format is 'findOne(conditions)', finds one matching document
+    // the Mongoose 'select()' method is used to specify the field(s) to be returned in the query result
+    // in this case it hides the Version Key from queries
     User.findOne({ _id: req.params.userId })
       .select('-__v')
       .populate('friends')
@@ -67,6 +70,7 @@ const userController = {
       // MongoDB: The '$set' operator replaces the value of a field with the specified value
       { $set: req.body, },
       // for runValidators option see https://mongoosejs.com/docs/validation.html#update-validators
+      // in this case it is a validation of new object against schema
       // To return the document with modifications made on the update, use the 'new: true' option
       { runValidators: true, new: true }
     )
@@ -83,7 +87,7 @@ const userController = {
         res.status(500).json(err);
       });
   },
-  // delete user (BONUS: and delete associated thoughts)
+  // delete user
   // API DELETE route is '/api/users/:userId'
   deleteUser(req, res) {
     // Mongoose helper action format is 'findOneAndDelete(conditions)'
@@ -93,13 +97,9 @@ const userController = {
         if (!dbUserData) {
           return res.status(404).json({ message: 'No user with this id!' });
         }
-
-        //* BONUS: get ids of user's `thoughts` and delete them all
-        // MongoDB: The '$in' operator selects the documents where the value of a field equals any value in the specified array
-        return Thought.deleteMany({ _id: { $in: dbUserData.thoughts } });
       })
       .then(() => {
-        res.json({ message: 'User and associated thoughts deleted!' });
+        res.json({ message: 'User deleted!' });
       })
       .catch((err) => {
         console.log(err);
