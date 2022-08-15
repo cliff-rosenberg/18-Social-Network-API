@@ -24,7 +24,7 @@ const thoughtSchema = new Schema(
   },
   {
     toJSON: {
-      getters: true,
+      // virtuals is true - there is a virtual property in this schema
       virtuals: true,
     },
     id: false
