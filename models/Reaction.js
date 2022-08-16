@@ -26,7 +26,7 @@ const reactionSchema = new Schema(
   },
   {
     toJSON: {
-      // getters is true - no virtual property in this schema
+      // getters is needed for the timestamp formatting
       getters: true
     },
     id: false
