@@ -38,8 +38,9 @@ const userController = {
         // throws a "404 Not Found" if no user id match
         if (!dbUserData) {
           return res.status(404).json({ message: 'No user with this id!' });
-        }
-        res.json(dbUserData);
+        } else {
+          res.json(dbUserData);
+        };
       })
       .catch((err) => {
         console.log(err);
@@ -78,8 +79,9 @@ const userController = {
         // throws a "404 Not Found" if no user id match
         if (!dbUserData) {
           return res.status(404).json({ message: 'No user with this id!' });
-        }
-        res.json(dbUserData);
+        } else {
+          res.json(dbUserData);
+        };
       })
       .catch((err) => {
         console.log(err);
@@ -122,8 +124,9 @@ const userController = {
         // throws a "404 Not Found" if no user id match
         if (!dbUserData) {
           return res.status(404).json({ message: 'No user with this id!' });
-        }
-        res.json(dbUserData);
+        } else {
+          res.json(dbUserData);
+        };
       })
       .catch((err) => {
         console.log(err);
@@ -147,8 +150,9 @@ const userController = {
         // throws a "404 Not Found" if no user id match
         if (!dbUserData) {
           return res.status(404).json({ message: 'No user with this id!' });
-        }
-        res.json(dbUserData);
+        } else {
+          res.json(dbUserData);
+        };
       })
       .catch((err) => {
         console.log(err);
