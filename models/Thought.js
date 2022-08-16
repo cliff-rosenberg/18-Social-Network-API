@@ -24,6 +24,8 @@ const thoughtSchema = new Schema(
   },
   {
     toJSON: {
+      // getter is needed for the timestamp formatting
+      getters: true,
       // virtuals is true - there is a virtual property in this schema
       virtuals: true,
     },
