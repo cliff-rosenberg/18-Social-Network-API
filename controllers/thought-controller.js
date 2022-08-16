@@ -33,8 +33,9 @@ const thoughtController = {
         // throws a "404 Not Found" if no id match
         if (!dbThoughtData) {
           return res.status(404).json({ message: 'No thought with this id!' });
+        } else {
+          res.json(dbThoughtData);
         }
-        res.json(dbThoughtData);
       })
       .catch((err) => {
         console.log(err);
@@ -49,7 +50,7 @@ const thoughtController = {
     Thought.create(req.body)
       .then((dbThoughtData) => {
         return User.findOneAndUpdate(
-          { _id: req.body.userId },
+          { username: req.body.username },
           // MongoDB The '$push' operator appends a specified value to an array
           { $push: { thoughts: dbThoughtData._id } },
           // To return the document with modifications made on the update, use the 'new: true' option
@@ -60,9 +61,9 @@ const thoughtController = {
         // throws a "404 Not Found" if no User id match
         if (!dbUserData) {
           return res.status(404).json({ message: 'Thought created but no user with this id!' });
+        } else {
+          res.json({ message: 'Thought successfully created!' });
         }
-
-        res.json({ message: 'Thought successfully created!' });
       })
       .catch((err) => {
         console.log(err);
@@ -84,8 +85,9 @@ const thoughtController = {
         // throws a "404 Not Found" if no Thought id match
         if (!dbThoughtData) {
           return res.status(404).json({ message: 'No thought with this id!' });
+        } else {
+          res.json(dbThoughtData);
         }
-        res.json(dbThoughtData);
       })
       .catch((err) => {
         console.log(err);
@@ -96,7 +98,7 @@ const thoughtController = {
   // DELETE thought by id
   // API route is '/api/thoughts/:thoughtId'
   deleteThought(req, res) {
-    Thought.findOneAndRemove({ _id: req.params.thoughtId })
+    Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((dbThoughtData) => {
          // throws a "404 Not Found" if no Thought id match
         if (!dbThoughtData) {
@@ -106,7 +108,7 @@ const thoughtController = {
         // Mongoose helper action format is 'findOneAndUpdate(conditions, update, options)'
         return User.findOneAndUpdate(
           //{ thoughts: req.params.thoughtId },
-          { username: deletedThought.username },
+          { username: dbThoughtData.username },
           // MongoDB The '$pull' operator removes from an existing array all instances of a value
           // or values that match a specified condition
           { $pull: { thoughts: req.params.thoughtId } },
@@ -118,8 +120,9 @@ const thoughtController = {
         // throws a "404 Not Found" if no user id match
         if (!dbUserData) {
           return res.status(404).json({ message: 'No user with this id!' });
+        } else {
+          res.json({ message: 'Thought successfully deleted!' });
         }
-        res.json({ message: 'Thought successfully deleted!' });
       })
       .catch((err) => {
         console.log(err);
@@ -169,8 +172,9 @@ const thoughtController = {
         // throws a "404 Not Found" if no Thought id match
         if (!dbThoughtData) {
           return res.status(404).json({ message: 'No thought with this id!' });
+        } else {
+          res.json(dbThoughtData);
         }
-        res.json(dbThoughtData);
       })
       .catch((err) => {
         console.log(err);
