@@ -35,7 +35,7 @@ const thoughtController = {
           return res.status(404).json({ message: 'No thought with this id!' });
         } else {
           res.json(dbThoughtData);
-        }
+        };
       })
       .catch((err) => {
         console.log(err);
@@ -63,7 +63,7 @@ const thoughtController = {
           return res.status(404).json({ message: 'Thought created but no user with this id!' });
         } else {
           res.json({ message: 'Thought successfully created!' });
-        }
+        };
       })
       .catch((err) => {
         console.log(err);
@@ -87,7 +87,7 @@ const thoughtController = {
           return res.status(404).json({ message: 'No thought with this id!' });
         } else {
           res.json(dbThoughtData);
-        }
+        };
       })
       .catch((err) => {
         console.log(err);
@@ -146,8 +146,9 @@ const thoughtController = {
         // throws a "404 Not Found" if no Thought id match
         if (!dbThoughtData) {
           return res.status(404).json({ message: 'No thought with this id!' });
-        }
-        res.json(dbThoughtData);
+        } else {
+          res.json(dbThoughtData);
+        };
       })
       .catch((err) => {
         console.log(err);
@@ -174,7 +175,7 @@ const thoughtController = {
           return res.status(404).json({ message: 'No thought with this id!' });
         } else {
           res.json(dbThoughtData);
-        }
+        };
       })
       .catch((err) => {
         console.log(err);
